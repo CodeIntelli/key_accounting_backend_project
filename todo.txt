@@ -1,0 +1,129 @@
+1@Info:-
+Blog --> Pagination,Search,Filter
+
+@Info:-
+Here [ + ] means Task Complete.
+Here [ - ] means Task Progress.
+Here [ . ] means Task to-do.
+
+
+[ + ] @Model--> Users
+@Attribute firstName: string
+@Attribute lastName: string
+@Attribute email: string
+@Attribute phoneNumber: number
+@Attribute country: string
+@Attribute state: string
+@Attribute city: string
+@Attribute company: string
+@Attribute role: enum['developer','content Writer','CEO']
+@Attribute isActive: Boolean
+@Attribute isVerified: Boolean
+@Attribute createdAt: Date
+@Attribute updatedAt: Date
+@Attribute Blogs:[]
+
+[ + ] @Model--> Blogs
+@Attribute postTitle: string
+@Attribute postDesc: string
+@Attribute content: string
+@Attribute post_slug: string
+@Attribute thumbImage: object
+@Attribute coverImage: object
+@Attribute isPublish: Boolean
+@Attribute publishedDate: Date
+@Attribute tags: []
+@Attribute subCategory: id ref(subCategory)
+@Attribute metaTitle: string
+@Attribute metaDesc: string
+@Attribute metaKeyword: string
+@Attribute facebook_id: string
+@Attribute linkedin_id: string
+@Attribute twitter_id: string
+@Attribute instagram_id: string
+@Attribute createdAt: Date
+@Attribute updatedAt: Date
+
+[ + ] @Model--> Blog Categories
+@Attribute title: string
+
+[ + ] @Model--> Blog Sub Categories
+@Attribute title: string
+@Attribute Category: id ref(Category)
+
+[ + ] @Model--> Pages
+@Attribute english: {
+@Attribute pageTitle
+@Attribute sectionTitle
+@Attribute sectionDesc
+@Attribute heading
+@Attribute desc
+@Attribute other
+@Attribute isImage
+@Attribute sectionImage
+}
+@Attribute spanish: {
+@Attribute pageTitle
+@Attribute sectionTitle
+@Attribute sectionDesc
+@Attribute heading
+@Attribute desc
+@Attribute other
+@Attribute isImage
+@Attribute sectionImage
+}
+
+[ + ] @Model--> HistoryModel
+@Attribute user: _id
+@Attribute logMessage: String
+@Attribute createdAt: Date
+@Attribute updatedAt: Date
+
+
+
+ 🔵 Get 
+ 🟢 Post 
+ 🟡 Put 
+ 🟠 SoftDelete(Patch)
+ 🔴 Delete
+
+  
+* Routes(/api/v1)
+
+[ . ] Authentication API
+ 🟢 /registration 
+ 🟢 /login 
+ 🟢 /forgotPassword 
+ 🟢 /resetPassword 
+ 🟡 /logout 
+
+[ . ] User CRUD API
+ 🔵 /users  ==> list users
+ 🔵 /user/:id  ==> get users
+ 🟢 /user ==> add users 
+ 🟡 /user/:id ==> update users 
+ 🟡 /change_role/:id ==> user change_role
+ 🟠 /user/:id ==> softdelete or inactive users
+ 🔴 /user/:id ==> permenantly delete users
+
+[ . ] Blog CRUD API
+ 🔵 /blogs ==> list blog
+ 🔵 /blog/:id ==> get blog
+ 🟢 /blog  ==> add blog
+ 🟡 /blog/:id ==> edit blog 
+ 🟠 /blog/:id ==> softDelete blog
+ 🔴 /blog/:id ==> permenantly remove blog
+
+[ . ] Pages Read & Edit API
+ 🔵 /content ==> list page content
+ 🔵 /content/:page ==> specific page content 
+ 🟢 /content ==> add page content(developer only)
+ 🟡 /content/:id ==> edit page 
+ 🟠 /blog/:id ==> soft remove page (developer only)
+ 🔴 /blog/:id ==> permenantly remove page (developer only)
+
+
+[ . ] For HistoryModel we are creating Services which will logs all the messages and only one routes is enough 
+
+ 🔵 /history ==> list history
+ 🔵 /history/:user_id ==> get specific user history 
